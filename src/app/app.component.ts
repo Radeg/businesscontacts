@@ -14,12 +14,15 @@ export class AppComponent implements OnInit {
   title = 'app works!';
   businesses: Business[];
   categories: Category[];
+  appState: string;
+  activeKey: string;
 
   constructor(private _businessService: BusinessService) {
 
   }
 
   ngOnInit() {
+    this.appState = 'defalut';
     this._businessService.getBusinesses().subscribe(businesses => {
       this.businesses = businesses
     })
@@ -27,6 +30,15 @@ export class AppComponent implements OnInit {
     this._businessService.getCategories().subscribe(categories => {
       this.categories = categories
     })
+  }
+
+  changeState(state, key) {
+    console.log('App state: ' + state);
+    if(key) {
+      console.log('Active key: ' + key);
+      this.activeKey = key;
+    }
+    this.appState = state;
   }
 }
 
