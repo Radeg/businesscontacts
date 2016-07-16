@@ -17,6 +17,17 @@ export class AppComponent implements OnInit {
   appState: string;
   activeKey: string;
 
+  activeCompany: string;
+  activeCategory: string;
+  activeYearsInBusiness: number;
+  activeDescription: string;
+  activePhone: string;
+  activeEmail: string;
+  activeStreetAddress: string;
+  activeCity: string;
+  activeState: string;
+  activeZipcode: string
+
   constructor(private _businessService: BusinessService) {
 
   }
@@ -32,7 +43,7 @@ export class AppComponent implements OnInit {
     })
   }
 
-  changeState(state, key) {
+  changeState(state, key = null) {
     console.log('App state: ' + state);
     if(key) {
       console.log('Active key: ' + key);
@@ -73,6 +84,45 @@ export class AppComponent implements OnInit {
       zipcode: zipcode,
       created_at: created_at
     }
+    this._businessService.addBusiness(newBusiness);
+    this.changeState('default');
+  }
+
+  showEdit(business) {
+    this.changeState('edit', business.$key);
+    this.activeCompany = business.company;
+    this.activeCategory = business.category;
+    this.activeYearsInBusiness = business.years_in_business;
+    this.activeDescription = business.description;
+    this.activePhone = business.phone;
+    this.activeEmail = business.email;
+    this.activeStreetAddress = business.street_address;
+    this.activeCity = business.city;
+    this.activeState = business.state;
+    this.activeZipcode = business.zipcode;
+  }
+
+  updateBusiness() {
+    var updBusiness = {
+      company: this.activeCompany,
+      category: this.activeCategory,
+      years_in_business: this.activeYearsInBusiness,
+      description: this.activeDescription,
+      phone: this.activePhone,
+      email: this.activeEmail,
+      street_address: this.activeStreetAddress,
+      city: this.activeCity,
+      state: this.activeState,
+      zipcode: this.activeZipcode
+    }
+
+    this._businessService.updateBusiness(this.activeKey, updBusiness);
+    this.changeState('default');
+  }
+
+  deleteBusiness(key) {
+    this._businessService.deleteBusiness(key);
+    this.changeState('default');
   }
 }
 

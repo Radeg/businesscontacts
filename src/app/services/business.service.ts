@@ -29,6 +29,18 @@ export class BusinessService {
     return this.categories;
   }
 
+  addBusiness(newBusiness): Promise<any> {
+    return this.businesses.push(newBusiness);
+  }
+
+  updateBusiness(key, updBusiness) {
+    return this.businesses.update(key, updBusiness);
+  }
+
+  deleteBusiness(key) {
+    return this.businesses.remove(key);
+  }
+
 }
 
 export interface Business {
