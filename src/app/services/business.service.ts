@@ -33,6 +33,10 @@ export class BusinessService {
     return this.businesses.push(newBusiness);
   }
 
+  addCategory(newCategory): Promise<any> {
+    return this.categories.push(newCategory);
+  }
+
   updateBusiness(key, updBusiness) {
     return this.businesses.update(key, updBusiness);
   }
@@ -48,7 +52,7 @@ export interface Business {
   company?: string;
   description?: string;
   category?: string;
-  years_in_business?: string;
+  years_in_business?: number;
   street_address?: string;
   city?: string;
   state?: string;

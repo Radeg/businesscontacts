@@ -88,6 +88,13 @@ export class AppComponent implements OnInit {
     this.changeState('default');
   }
 
+  addCategory(category: string) {
+    var newCategory = {name: category}
+
+    this._businessService.addCategory(newCategory);
+    this.changeState('default');
+  }
+
   showEdit(business) {
     this.changeState('edit', business.$key);
     this.activeCompany = business.company;
@@ -129,15 +136,15 @@ export class AppComponent implements OnInit {
 export interface Business {
   $key?: string;
   company?: string;
-  description?: string;
   category?: string;
-  years_in_business?: string;
+  years_in_business?: number;
+  description?: string;
+  phone?: string;
+  email?: string;
   street_address?: string;
   city?: string;
   state?: string;
   zipcode?: string;
-  phone?: string;
-  email?: string;
   created_at?: string;
 }
 
